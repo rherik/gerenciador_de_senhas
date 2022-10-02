@@ -8,6 +8,7 @@ Tarefas:
 - Informar quando o arquivo estiver vazio
 - Estudar uma possível implementação do kivy ou fazer interface gráfica com pyqt5
 - Implementar um sistema de backup
+- Listar arquivos 
 """
 
 
@@ -44,8 +45,9 @@ def app():
                       "\n- Digite 2 para incluir uma senha existente"
                       "\n- Digite 3 para listar todas as senhas"
                       "\n- Digite 4 para criar ou alterar de usuário"
-                      "\n- Digite 5 para exluir um login"
-                      "\n- Digite 6 para excluir todo o conteúdo do arquivo \n")
+                      "\n- Digite 5 para listar os arquivos de senhas"
+                      "\n- Digite 6 para exluir um login"
+                      "\n- Digite 7 para excluir todo o conteúdo do arquivo \n")
                 
         if opcao == "0":
             sleep(1)
@@ -90,8 +92,14 @@ def app():
         elif opcao == "4":
             arq_usuario = input(
             "Insira o nome do seu arquivo de senhas: ")
-            
+
         elif opcao == "5":
+            print("Os arquivos sao:")
+            for n in os.listdir("./"):
+                if ".json" in n:
+                    print(n)
+            
+        elif opcao == "6":
             login = input("Qual login você quer excluir? ")
             
             login_apagado= usuario.apagar_chave(arquivo_usuario, login)
@@ -101,7 +109,7 @@ def app():
             else:
                 print("Erro na função incluir_conteudo")
 
-        elif opcao == "6":
+        elif opcao == "7":
             while True:
                 questao = input(f"Todo o conteúdo será perdido e essa alteração não poderá ser desfeita!"
                                 f"\nTem certeza que deseja apagar todo o conteudo do arquivo {arquivo_usuario} (s/n)? ")
