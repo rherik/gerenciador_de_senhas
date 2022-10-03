@@ -17,9 +17,22 @@ def app():
     Tarefas:
     - Melhorar a troca de arquivos
     '''
-    introducao()
-    arq_usuario = input(
-            "Insira o nome do seu arquivo de senhas: ")
+    #introducao()
+    lista_dos_arquivos = lista_de_arquivos()
+    if len(lista_dos_arquivos) == 0:
+        print("Você não possui arquivo de armazenamento de senhas.")
+        arq_usuario = input(
+                "Insira o nome do seu arquivo de senhas: ")
+    elif len(lista_dos_arquivos) == 1:
+        # Consertar: Nome fica com .json duas vezes
+        for n in lista_dos_arquivos:
+            arquivo_da_funcao = n[-5]
+        print(f"Seu arquivo de senhas será:\n {arquivo_da_funcao}")
+        arq_usuario = arquivo_da_funcao
+    else:
+        listar_arquivos(lista_dos_arquivos)
+        arq_usuario = input(
+                "Insira o nome do seu arquivo de senhas: ")
     
     while True:
         if arq_usuario == "0":
@@ -30,7 +43,7 @@ def app():
 
         usuario = Gerenciador()
         # usuario.nome = arq_usuario
-
+  
         arquivo_usuario = arq_usuario + ".json"
 
         if not os.path.isfile(arquivo_usuario):
@@ -94,10 +107,7 @@ def app():
             "Insira o nome do seu arquivo de senhas: ")
 
         elif opcao == "5":
-            print("Os arquivos sao:")
-            for n in os.listdir("./"):
-                if ".json" in n:
-                    print(n)
+            listar_arquivos()
             
         elif opcao == "6":
             login = input("Qual login você quer excluir? ")

@@ -8,7 +8,7 @@ class Gerenciador:
     '''
     Tarefas:
     - Incluir ao método apagar chave se o login informado existe no arquivo
-    - Criptografar o arquivo json
+    - Criptografar o arquivo json. Link de ajuda: https://pt.stackoverflow.com/questions/195018/colocar-senha-em-um-arquivo-python 
     - Criar método para excluir arquivo com a biblioteca os
     '''
     
