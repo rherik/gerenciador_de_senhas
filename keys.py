@@ -1,6 +1,7 @@
 import random
 import string
 import json
+import pyAesCrypt
 from time import sleep
 
 
@@ -15,29 +16,42 @@ class Gerenciador:
         '''
         Apaga o último arquivo json e cria um novo com um dicionário atualizado
         '''
-        try:
-            with open(arq, 'w') as arquivo:
-                json.dump(conteudo, arquivo, indent=4)
-                return True
-        except Exception as E:
-            print(f"Erro {E} ao incluir lista.")
-            return False
+        # Encriptar:
+        with open(arq, "rb") as encripitar:
+            try:
+                with open(arq + ".aes", 'wb') as arquivo:
+                    pyAesCrypt.encryptFile(encripitar, arquivo, json.dump(conteudo, arquivo, indent=4))
+                    return True
+            except Exception as E:
+                print(f"Erro {E} ao incluir lista.")
+                return False
 
+    # decriptar:
     def trata_dicio(self, arq, login, senha):
         '''
         Armazena um dicionário a partir do conteúdo do arquivo, inclui os novos login e senha
         :return: Um novo dicionário para atualizar o arquivo
         '''
-        with open(arq, "r") as arquivo:
-            dicio_nome = json.load(arquivo)
-        dicio_nome[login] = senha
+        with open(arq + "aes", "rb") as decriptar:
+            try:
+                with open(arq, "r") as arquivo:
+                    pyAesCrypt.decryptSream(decriptar, arquivo)
+                    dicio_nome = json.load(arquivo)
+                dicio_nome[login] = senha
+            except:
+                print("Erro de decriptação para escrita do dicionário.")
         return dicio_nome
 
 
     def ler_arquivo(self, arq):
         i = 1
-        with open(arq, 'r') as arquivo:
-            dados = json.load(arquivo)
+        with open(arq + "aes", "rb") as decriptar:
+            try:
+                with open(arq, "r") as arquivo:
+                    pyAesCrypt.decryptSream(decriptar, arquivo)
+                    dados = json.load(arquivo)
+            except:
+                print("Erro ao decriptar arquivo para leitura.") 
         for chave, valor in dados.items():
             sleep(1)
             print(f"\nO login da {i}º senha é:", chave, "\ne a senha é:", valor)
