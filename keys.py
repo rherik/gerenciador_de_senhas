@@ -3,9 +3,14 @@ import string
 import json
 from time import sleep
 
+'''
+Alterar o nome deste arquivo para um mais adequado.
+'''
+
 
 class Gerenciador:
     '''
+    Zipar os arquivos json.
     Tarefas:
     - Incluir ao método apagar chave se o login informado existe no arquivo
     - Criptografar o arquivo json.(pyAesCrypt)
