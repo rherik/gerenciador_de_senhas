@@ -1,6 +1,7 @@
 # Tarefa: Criar uma lista 
 # com os arquivos do diretório atual
 import os
+from gerenciador.classes import *
 class Teste:
     def __init__(self):
         self.caminho_usuario = os.path.expanduser(r"~")
@@ -14,8 +15,8 @@ class Teste:
                     lista_dos_arquivos.append(filename)
         return lista_dos_arquivos
         
-        
-test = Teste()
-lista = test.funcao_de_lista()
-for n in lista:
-    print(n)
+   
+caminho_usuario = os.path.expanduser(r"~") # /home/kurtz
+caminho = caminho_usuario + "/Downloads/Tarefas/"   
+udemy = Aplicacao(caminho)
+     
