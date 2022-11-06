@@ -62,7 +62,6 @@ class Gerenciador:
                 "Insira o nome do seu arquivo de senhas: ")
             if novo_arquivo == "0":
                 return
-    
             arquivo = self.dir + self.verifica_json(novo_arquivo)
             return arquivo
 
@@ -71,6 +70,19 @@ class Gerenciador:
         for arq_lista in self.lista_dos_arquivos:
             sleep(1)
             print(arq_lista)
+            
+    # Cria um novo arquivo vazio
+    def cria_arq(self, arq):
+        dicio_vazio = {}
+        if not arq in self.lista_dos_arquivos:
+            with open(arq, "w") as arquivo:
+                json.dump(dicio_vazio, arquivo)
+                print("Arquivo criado com sucesso.")
+            return arq
+        else:
+            print(f"Arquivo {arq} já existe.")
+            return arq
+
 
 
 class Aplicacao(Gerenciador):
@@ -139,7 +151,8 @@ class Aplicacao(Gerenciador):
         dicio_nome.pop(login)
         return dicio_nome
 
-    def apagar_tudo(self, arq):
+    # Cria um arquivo vazio ou apaga o conteúdo do arquivo
+    def arq_vazio(self, arq):
         '''
         Apaga todo o conteúdo do arquivo
         '''
@@ -150,7 +163,6 @@ class Aplicacao(Gerenciador):
 
     def exclui_arquivo(self, arq):
         try:
-            arq = self.dir + self.verifica_json(arq)
             os.remove(arq)
             print("Arquivo excluído com sucesso.")
         except Exception as e:

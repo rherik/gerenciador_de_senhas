@@ -2,7 +2,7 @@
     Lista de afazeres:
 </h2>
 <ol>
-    <dl>- Consertar o erro em na linha 99 do arquivo classes(dicio_nome = json.load(arquivo))</dl>
+    <dl>- Consertar a troca de arquivos</dl>
     <dl>- Implementar conexao SQL</dl>
     <dl>- Armazenar a variável opcao em uma função no arquivo interface</dl>
     <dl>- Informar quando o arquivo estiver vazio e listar arquivos</dl>
@@ -11,6 +11,5 @@
     <dl>- Melhorar a troca de arquivos</dl>
     <dl>- Incluir ao método apagar_chave se o login informado existe no arquivo</dl>
     <dl>- Criptografar o arquivo json</dl>
-    <dl>- Melhorar a troca de arquivos</dl>
     <dl></dl>
 </ol>

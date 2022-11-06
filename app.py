@@ -16,6 +16,7 @@ def app():
     interface.introducao()
     
     arq = gerenciador.encontra_arquivo()
+    gerenciador.cria_arq(arq)
     
     aplicacao = Aplicacao(arq)
         
@@ -90,13 +91,13 @@ def app():
                 aplicacao.ler_arquivo()
             
             # Cria ou altera de usuário
-            # Consertar:
             elif opcao == "4":
-                aplicacao.encontra_arquivo(False)
-                
+                cria_altera = gerenciador.encontra_arquivo()
+                gerenciador.cria_arq(cria_altera)
+
             # Lista todos os arquivos .json
             elif opcao == "5":
-                aplicacao.encontra_arquivo()
+                gerenciador.encontra_arquivo()
 
             elif opcao == "6":
                 login = input("Qual login você quer excluir? ")
@@ -111,10 +112,10 @@ def app():
             elif opcao == "7":
                 while True:
                     questao = input(f"Todo o conteúdo será perdido e essa alteração não poderá ser desfeita!"
-                                    f"\nTem certeza que deseja apagar todo o conteudo do arquivo {arquivo_usuario} (s/n)? ")
+                                    f"\nTem certeza que deseja apagar todo o conteudo do arquivo {arq} (s/n)? ")
                     # questao = questao.lower
                     if questao == "s":
-                        aplicacao.apagar_tudo()
+                        aplicacao.arq_vazio(arq)
                         break
                     elif questao == "n":
                         break
@@ -122,8 +123,10 @@ def app():
                         print("Digite s para Sim e n para Não.")
 
             elif opcao == "8":
-                aplicacao.listar_arquivos()
+                gerenciador.listar_arquivos()
                 arquivo = input("Qual é o nome do arquivo que você quer excluir? ")
+                arquivo = gerenciador.verifica_json(arquivo)
+                arquivo = caminho + arquivo
                 aplicacao.exclui_arquivo(arquivo)
             else:
                 print("Insira uma opção válida.")
