@@ -7,17 +7,18 @@ from time import sleep
 def app():
     # Declaracão dos caminhos
     caminho_usuario = os.path.expanduser(r"~")
-    caminho = caminho_usuario + "/Downloads/Tarefas/"
+    caminho = caminho_usuario + "\\Desktop\\"
             
     # Instanciando as classes
     interface = Interface(True)
-    gerenciador = Gerenciador(caminho)
+    gerenciador = Gerenciador()
 
     interface.introducao()
     
     arq = gerenciador.encontra_arquivo()
     gerenciador.cria_arq(arq)
     
+    # Erro ao trocar de arquivo pois é definido aqui
     aplicacao = Aplicacao(arq)
         
     opcao = ''
@@ -58,8 +59,11 @@ def app():
 
             elif opcao == "1":
                 while True:
+                    tipo = input("Senha de:\n"
+                                   "[1] - Apenas números\n"
+                                   "[2] - Letras, números e síbolos\n")
                     qnt = input(
-                        "Digite a quantidade de dígitos que você precisa na sua senha: ")
+                        "Digite a quantidade de caracteres que você precisa na sua senha: ")
                     try:
                         qnt = int(qnt)
                         if qnt == int(qnt):
@@ -68,7 +72,7 @@ def app():
                         print("Erro! Insira um valor numérico válido.")
 
                 login = input("Qual é o login da nova senha? ")
-                senha = aplicacao.gerar_nova_senha(qnt)
+                senha = aplicacao.gerar_nova_senha(tipo, qnt)
                 nova_senha = aplicacao.trata_dicio(login, senha)
 
                 if aplicacao.incluir_conteudo(nova_senha):
@@ -92,8 +96,9 @@ def app():
             
             # Cria ou altera de usuário
             elif opcao == "4":
-                cria_altera = gerenciador.encontra_arquivo()
+                cria_altera = input("Digite o nome do novo arquivo: ")
                 gerenciador.cria_arq(cria_altera)
+                aplicacao = Aplicacao(cria_altera)
 
             # Lista todos os arquivos .json
             elif opcao == "5":

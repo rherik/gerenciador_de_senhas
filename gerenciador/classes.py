@@ -74,10 +74,10 @@ class Gerenciador:
     # Cria um novo arquivo vazio
     def cria_arq(self, arq):
         dicio_vazio = {}
-        if not arq in self.lista_dos_arquivos:
+        if not arq in os.listdir(self.dir):
             with open(arq, "w") as arquivo:
                 json.dump(dicio_vazio, arquivo)
-                print("Arquivo criado com sucesso.")
+                print("Arquivo alterado com sucesso.")
             return arq
         else:
             print(f"Arquivo {arq} já existe.")
@@ -125,18 +125,22 @@ class Aplicacao(Gerenciador):
                       chave, "\ne a senha é:", valor)
                 i += 1
 
-    def gerar_nova_senha(self, quantidade_digitos=int()):
+    def gerar_nova_senha(self, tipo, quantidade_digitos=int()):
         """
         Exige que o usuário insira o login da senha como chave para o dicionário.
         :return: A senha de oito dígitos que foi gerada.
         """
+        letras = string.ascii_letters
+        digitos = string.digits
+        caracteres = '_-@#$%.*!'
         try:
-            letras = string.ascii_letters
-            digitos = string.digits
-            caracteres = '_-@#$%.*!'
-            senha = ''.join(random.choices(letras + digitos +
-                            caracteres, k=quantidade_digitos))
-            return senha
+            if tipo == '2':
+                senha = ''.join(random.choices(letras + digitos +
+                                caracteres, k=quantidade_digitos))
+                return senha
+            elif tipo == '1':
+                senha = ''.join(random.choices(digitos, k=quantidade_digitos))
+                return senha
 
         except Exception as e:
             print(f'Erro "{e}" ao criar a senha.')
