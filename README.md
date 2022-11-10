@@ -18,8 +18,9 @@
 
 <h3>Consertar:</h3>
 <ol>
+    <dl>Classe Aplicação não tem o atributo self.lista_dos_arquivos</dl>
     <dl>- Toda vez que a aplicação inicia o conteúdo do arquivo é apagado</dl>
-    <dl>- A troca de arquivos</dl>
+    <dl></dl>
 </ol>
 
 

@@ -7,8 +7,8 @@ from time import sleep
 def app():
     # Declaracão dos caminhos
     caminho_usuario = os.path.expanduser(r"~")
-    caminho = caminho_usuario + "\\Desktop\\"
-            
+    
+
     # Instanciando as classes
     interface = Interface(True)
     gerenciador = Gerenciador()
@@ -16,9 +16,8 @@ def app():
     interface.introducao()
     
     arq = gerenciador.encontra_arquivo()
-    gerenciador.cria_arq(arq)
+    arq = gerenciador.cria_arq(arq)
     
-    # Erro ao trocar de arquivo pois é definido aqui
     aplicacao = Aplicacao(arq)
         
     opcao = ''
@@ -96,13 +95,14 @@ def app():
             
             # Cria ou altera de usuário
             elif opcao == "4":
+                gerenciador.listar_arquivos()
                 cria_altera = input("Digite o nome do novo arquivo: ")
-                gerenciador.cria_arq(cria_altera)
+                cria_altera = gerenciador.cria_arq(caminho + cria_altera)
                 aplicacao = Aplicacao(cria_altera)
 
             # Lista todos os arquivos .json
             elif opcao == "5":
-                gerenciador.encontra_arquivo()
+                gerenciador.listar_arquivos()
 
             elif opcao == "6":
                 login = input("Qual login você quer excluir? ")

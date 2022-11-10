@@ -41,7 +41,7 @@ class Gerenciador:
     def encontra_arquivo(self):
 
         self.lista_dos_arquivos = [
-            n for n in os.listdir(self.dir) if '.json' in n]
+            self.dir + n for n in os.listdir(self.dir) if '.json' in n]
 
         if len(self.lista_dos_arquivos) == 0:
             print("Você não possui arquivo de armazenamento de senhas.")
@@ -52,7 +52,7 @@ class Gerenciador:
             return arquivo
 
         elif len(self.lista_dos_arquivos) == 1:
-            arquivo = self.dir + self.lista_dos_arquivos[0]
+            arquivo = self.lista_dos_arquivos[0]
             print(f"Seu arquivo de senhas atual é:\n{arquivo}")
             return arquivo
 
@@ -73,8 +73,10 @@ class Gerenciador:
             
     # Cria um novo arquivo vazio
     def cria_arq(self, arq):
+        arq = self.verifica_json(arq)
+        # arq = self.dir + arq
         dicio_vazio = {}
-        if not arq in os.listdir(self.dir):
+        if arq not in self.lista_dos_arquivos:
             with open(arq, "w") as arquivo:
                 json.dump(dicio_vazio, arquivo)
                 print("Arquivo alterado com sucesso.")
@@ -168,6 +170,10 @@ class Aplicacao(Gerenciador):
     def exclui_arquivo(self, arq):
         try:
             os.remove(arq)
+            for n, arquivo in enumerate(self.lista_dos_arquivos):
+                if arq in arquivo:
+                    print(n, arquivo)
+                    self.lista_dos_arquivos.pop(n)
             print("Arquivo excluído com sucesso.")
         except Exception as e:
             print(f"Erro {e} ao excluír o arquivo {arq}. Tente novamente.")
